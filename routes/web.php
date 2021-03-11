@@ -15,6 +15,6 @@ use Illuminate\Support\Facades\Auth;
 
 Route::get('/', function () {
     return view('layouts.app');
-});
+})->name('root')->middleware('verified');;
 
-Auth::routes();
+Auth::routes(['verify' => true]);
