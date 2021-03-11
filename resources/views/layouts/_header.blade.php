@@ -8,8 +8,25 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto"></ul>
             <ul class="nabar-nav navbar-right">
+                @guest
                 <li class="nav-item"><a href="" class="nav-link">登录</a></li>
                 <li class="nav-item"><a href="" class="nav-link">注册</a></li>
+                @else
+                <li class="nav-item dropdown">
+                    <a href="" class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown"
+                        aria-haspopup="true" aria-expanded="false">
+                        <img src="https://cdn.learnku.com/uploads/images/201709/20/1/PtDKbASVcz.png?imageView2/1/w/60/h/60"
+                            alt="" class="img-responsivef img-circle" width="30px" height="30px">
+                        {{Auth::user()->name}}
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a href="" class="dropdown-item" id="logout"
+                            onclick="event.preventDefault();document.getElementById('lagout-form').submit();">退出登录</a>
+                        <form action="{{route('logout')}}" method="POST" style="display: none;" id="logout-form">
+                            @csrf</form>
+                    </div>
+                </li>
+                @endguest
             </ul>
         </div>
     </div>
