@@ -1,4 +1,4 @@
-const addressData = require('china-area-data');
+const addressData = require('china-area-data/v5/data');
 import _ from 'lodash';
 Vue.component('select-district', {
     props: {
@@ -41,7 +41,8 @@ Vue.component('select-district', {
             }
         },
         districtId() {
-            this.$emit('change', [this.provinces[this.provinceId], this.citites[this.cityId], this.districts[this.districtId]]);
+            this.$emit('change', [this.provinces[this.provinceId], this.cities[this.cityId], this.districts[this.districtId]]);
+
         },
     },
     created() {

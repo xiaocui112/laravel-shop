@@ -1859,6 +1859,8 @@ window.Vue = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm.js"
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
 
 __webpack_require__(/*! ./components/SelectDistrict */ "./resources/js/components/SelectDistrict.js");
+
+__webpack_require__(/*! ./components/UserAddressesCreateAndEdit */ "./resources/js/components/UserAddressesCreateAndEdit.js");
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application
@@ -1926,7 +1928,7 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! lodash */ "./node_modules/lodash/lodash.js");
 /* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(lodash__WEBPACK_IMPORTED_MODULE_0__);
-var addressData = __webpack_require__(/*! china-area-data */ "./node_modules/china-area-data/data.js");
+var addressData = __webpack_require__(/*! china-area-data/v5/data */ "./node_modules/china-area-data/v5/data.js");
 
 
 Vue.component('select-district', {
@@ -1976,7 +1978,7 @@ Vue.component('select-district', {
       }
     },
     districtId: function districtId() {
-      this.$emit('change', [this.provinces[this.provinceId], this.citites[this.cityId], this.districts[this.districtId]]);
+      this.$emit('change', [this.provinces[this.provinceId], this.cities[this.cityId], this.districts[this.districtId]]);
     }
   },
   created: function created() {
@@ -2023,6 +2025,33 @@ Vue.component('select-district', {
       }
 
       this.districtId = districtId;
+    }
+  }
+});
+
+/***/ }),
+
+/***/ "./resources/js/components/UserAddressesCreateAndEdit.js":
+/*!***************************************************************!*\
+  !*** ./resources/js/components/UserAddressesCreateAndEdit.js ***!
+  \***************************************************************/
+/***/ (() => {
+
+Vue.component('user-addresses-create-and-edit', {
+  data: function data() {
+    return {
+      province: '',
+      city: '',
+      district: ''
+    };
+  },
+  methods: {
+    onDistrictChanged: function onDistrictChanged(val) {
+      if (val.length == 3) {
+        this.province = val[0];
+        this.city = val[1];
+        this.district = val[2];
+      }
     }
   }
 });
@@ -6470,21 +6499,21 @@ Vue.component('select-district', {
 
 /***/ }),
 
-/***/ "./node_modules/china-area-data/data.js":
-/*!**********************************************!*\
-  !*** ./node_modules/china-area-data/data.js ***!
-  \**********************************************/
+/***/ "./node_modules/china-area-data/v5/data.js":
+/*!*************************************************!*\
+  !*** ./node_modules/china-area-data/v5/data.js ***!
+  \*************************************************/
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
-module.exports = __webpack_require__(/*! ./data.json */ "./node_modules/china-area-data/data.json")
+module.exports = __webpack_require__(/*! ./data.json */ "./node_modules/china-area-data/v5/data.json")
 
 
 /***/ }),
 
-/***/ "./node_modules/china-area-data/data.json":
-/*!************************************************!*\
-  !*** ./node_modules/china-area-data/data.json ***!
-  \************************************************/
+/***/ "./node_modules/china-area-data/v5/data.json":
+/*!***************************************************!*\
+  !*** ./node_modules/china-area-data/v5/data.json ***!
+  \***************************************************/
 /***/ ((module) => {
 
 "use strict";
