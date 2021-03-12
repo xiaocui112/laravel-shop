@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Routing\Router;
+use Encore\Admin\Facades\Admin;
 
 Admin::routes();
 
@@ -13,4 +14,5 @@ Route::group([
 
     $router->get('/', 'HomeController@index')->name('home');
     $router->get('users', 'UsersController@index');
+    $router->get('products', 'ProductsController@index');
 });
