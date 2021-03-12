@@ -13,9 +13,7 @@ use Illuminate\Support\Facades\Auth;
 |
 */
 
-Route::get('/', function () {
-    return view('layouts.app');
-})->name('root')->middleware('verified');;
+Route::get('/', 'ProductsController@index')->name('products.index');
 Route::post('/upload', 'UploadController@upload')->name('image.upload');
 Auth::routes(['verify' => true]);
 Route::group(['middleware' => ['auth', 'verified']], function () {

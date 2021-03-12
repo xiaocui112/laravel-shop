@@ -21,8 +21,17 @@ class ProductFactory extends Factory
      */
     public function definition()
     {
+
+
         return [
-            //
+            'title'        => $this->faker->word,
+            'description'  => $this->faker->sentence,
+            'image'        => "images/2021/03/12/55e050fca12289d382876509ec709de0.jpg",
+            'on_sale'      => true,
+            'rating'       => $this->faker->numberBetween(0, 5),
+            'sold_count'   => 0,
+            'review_count' => 0,
+            'price'        => 0,
         ];
     }
 }
