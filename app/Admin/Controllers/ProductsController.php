@@ -85,15 +85,19 @@ class ProductsController extends AdminController
     {
         $form = new Form(new Product());
 
-        $form->text('title', __('Title'));
-        $form->textarea('description', __('Description'));
-        $form->image('image', __('Image'));
-        $form->switch('on_sale', __('On sale'))->default(1);
-        $form->decimal('rating', __('Rating'))->default(5.00);
-        $form->number('sold_count', __('Sold count'));
-        $form->number('review_count', __('Review count'));
-        $form->decimal('price', __('Price'));
-
+        $form->text('title', __('Title'))->rules('required');
+        $form->editor('description', __('Description'))->rules('required');
+        $form->image('image', __('Image'))->rules('required|image');
+        $form->radio('on_sale', __('On sale'))->options(['1' => '是', '0' => '否'])->default(1);
+        $form->hasMany('skus', 'SKU 列表', function (Form\NestedForm $form) {
+            $form->text('title', 'sku 名称')->rules('required');
+            $form->text('description', 'sku 描述')->rules('required');
+            $form->decimal('price', '单价')->rules('required|numeric|min:0.01');
+            $form->number('stock', '库存')->rules('required|integer|min:0');
+        });
+        $form->saving(function (Form $form) {
+            $form->model()->price = collect($form->input('skus'))->where(Form::REMOVE_FLAG_NAME, 0)->min('price') ?? 0;
+        });
         return $form;
     }
 }

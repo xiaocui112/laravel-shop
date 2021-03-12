@@ -392,5 +392,16 @@ return [
     | https://github.com/laravel-admin-extensions.
     |
     */
-    'extensions' => [],
+    'extensions' => [
+        'wang-editor' => [
+
+            // 如果要关掉这个扩展，设置为false
+            'enable' => true,
+
+            // 编辑器的配置
+            'config' => [
+                'uploadImgServer' => '/upload'
+            ]
+        ]
+    ],
 ];
