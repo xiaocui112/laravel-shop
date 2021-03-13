@@ -82,6 +82,10 @@ return [
 
     'locale' => 'zh_CN',
 
+    /**
+     * job delay 
+     */
+    'order_ttl' => 1800,
     /*
     |--------------------------------------------------------------------------
     | Application Fallback Locale
