@@ -140,7 +140,7 @@
             });
             axios.post("{{route('orders.store')}}", req).then((response) => {
                 swal('订单提交成功', '', 'success').then(function () {
-                    location.href = "{{route('orders.index')}}"
+                    location.href = '/orders/' + response.data.id;
                 });
             }, (error) => {
                 if (error.response.status == 422) {
