@@ -45,8 +45,48 @@
                 @endforeach
                 <tr>
                     <td>订单金额:</td>
-                    <td colspan="3">{{$order->total_amount}}</td>
+                    <td>{{$order->total_amount}}</td>
+                    <td>发货状态:</td>
+                    <td>{{\App\Models\Order::$shipStatusMap[$order->ship_status]}}</td>
                 </tr>
+                @if($order->ship_status==\App\Models\Order::SHIP_STATUS_PENDING)
+                <tr>
+                    <td colspan="4">
+                        <form action="{{route('admin.admin.orders.ship',$order->id)}}" class="form-inline"
+                            method="post">
+                            @csrf
+                            <div class="form-group {{$errors->has('express_company')?'has-error':''}}">
+                                <label for="express_company" class="control-label">物流公司</label>
+                                <input type="text" name="express_company" id="express_company" class="form-control"
+                                    placeholder="输入物流公司">
+                                @if($errors->has('express_company'))
+                                @foreach($errors->get('express_no') as $msg)
+                                <span class="help-block">{{$msg}}</span>
+                                @endforeach
+                                @endif
+                            </div>
+                            <div class="form-group {{$errors->has('express_no')?'has-error':''}}">
+                                <label for="express_no" class="control-label">物流单号</label>
+                                <input type="text" name="express_no" id="express_no" class="form-control"
+                                    placeholder="输入物流单号">
+                                @if($errors->has('express_no'))
+                                @foreach($errors->get('express_no') as $msg)
+                                <span class="help-block">{{$msg}}</span>
+                                @endforeach
+                                @endif
+                            </div>
+                            <button type="submit" class="btn btn-success" id="ship-btn">发货</button>
+                        </form>
+                    </td>
+                </tr>
+                @else
+                <tr>
+                    <td>物流公司:</td>
+                    <td>{{$order->ship_data['express_company']}}</td>
+                    <td>物流单号:</td>
+                    <td>{{$order->ship_data['express_no']}}</td>
+                </tr>
+                @endif
             </tbody>
         </table>
     </div>
