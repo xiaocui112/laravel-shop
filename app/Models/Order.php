@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Log;
+use Ramsey\Uuid\Uuid;
 
 class Order extends Model
 {
@@ -128,5 +129,12 @@ class Order extends Model
         Log::warning('find order no failed');
 
         return false;
+    }
+    public static function getAvailableRefundNo()
+    {
+        do {
+            $no = Uuid::uuid4()->getHex();
+        } while (self::query()->where('refund_no', $no)->exists());
+        return $no;
     }
 }
