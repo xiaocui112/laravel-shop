@@ -2,6 +2,7 @@
 
 namespace App\Admin\Controllers;
 
+use App\Models\Category;
 use App\Models\Product;
 use Encore\Admin\Controllers\AdminController;
 use Encore\Admin\Form;
@@ -25,7 +26,7 @@ class ProductsController extends AdminController
     protected function grid()
     {
         $grid = new Grid(new Product());
-
+        $grid->model()->with(['category']);
         $grid->column('id', __('Id'));
         $grid->column('title', __('Title'));
         $grid->column('description', __('Description'));
@@ -86,6 +87,12 @@ class ProductsController extends AdminController
         $form = new Form(new Product());
 
         $form->text('title', __('Title'))->rules('required');
+        $form->select('category_id', '类目')->options(function ($id) {
+            $category = Category::find($id);
+            if ($category) {
+                return [$category->id => $category->full_name];
+            }
+        })->ajax('/admin/api/categories?is_directory=0');
         $form->editor('description', __('Description'))->rules('required');
         $form->image('image', __('Image'))->rules('required|image');
         $form->radio('on_sale', __('On sale'))->options(['1' => '是', '0' => '否'])->default(1);

@@ -22,6 +22,7 @@ class ProductFactory extends Factory
     public function definition()
     {
 
+        $category = \App\Models\Category::query()->where('is_directory', false)->inRandomOrder()->first();
 
         return [
             'title'        => $this->faker->word,
@@ -32,6 +33,7 @@ class ProductFactory extends Factory
             'sold_count'   => 0,
             'review_count' => 0,
             'price'        => 0,
+            'category_id'  => $category ? $category->id : null,
         ];
     }
 }
