@@ -2,7 +2,7 @@
 
 use Illuminate\Routing\Router;
 use Encore\Admin\Facades\Admin;
-use Illuminate\Routing\Route;
+
 
 Admin::routes();
 
