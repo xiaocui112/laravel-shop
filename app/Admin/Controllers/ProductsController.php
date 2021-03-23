@@ -26,7 +26,7 @@ class ProductsController extends AdminController
     protected function grid()
     {
         $grid = new Grid(new Product());
-        $grid->model()->with(['category']);
+        $grid->model()->where('type', Product::TYPE_NORMAL)->with(['category']);
         $grid->column('id', __('Id'));
         $grid->column('title', __('Title'));
         $grid->column('description', __('Description'));
@@ -85,7 +85,7 @@ class ProductsController extends AdminController
     protected function form()
     {
         $form = new Form(new Product());
-
+        $form->hidden('type')->value(Product::TYPE_NORMAL);
         $form->text('title', __('Title'))->rules('required');
         $form->select('category_id', '类目')->options(function ($id) {
             $category = Category::find($id);
